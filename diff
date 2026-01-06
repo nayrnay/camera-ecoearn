@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Camera Card</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    background: #e5e6c2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: sans-serif;
+  }
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    text-align: center;
+    cursor: pointer;
+  }
+  video {
+    display: none;
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card" id="cameraCard">
+  <div>Tap to open camera</div>
+  <video id="video" autoplay playsinline muted></video>
+</div>
+
+<script>
+  const card = document.getElementById('cameraCard');
+  const video = document.getElementById('video');
+
+  card.onclick = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+      video.style.display = 'block';
+    } catch (e) {
+      alert("Camera blocked or permission denied.");
+      console.error(e);
+    }
+  };
+</script>
+
+</body>
+</html>
